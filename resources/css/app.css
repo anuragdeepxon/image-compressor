@@ -2,11 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-
 html,
 body {
-  color: #323947 !important;
-  background-color: #e6e6e6 !important;
+  color: #fff !important;
+  background-color: #3a414f !important;
   /* font-family: 'Raleway' !important; */
 }
-
