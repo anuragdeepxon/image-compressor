@@ -2333,6 +2333,9 @@ body[dir="rtl"] .checkbox:checked,
   --tw-text-opacity: 1;
   color: hsl(var(--bc) / var(--tw-text-opacity));
 }
+.input[list]::-webkit-calendar-picker-indicator {
+  line-height: 1em;
+}
 .input-bordered {
   --tw-border-opacity: 0.2;
 }
@@ -2721,23 +2724,23 @@ body[dir="rtl"] .checkbox:checked,
   margin-left: auto;
   margin-right: auto;
 }
+.mb-9 {
+  margin-bottom: 2.25rem;
+}
 .mt-6 {
   margin-top: 1.5rem;
 }
 .ml-1 {
   margin-left: 0.25rem;
 }
+.mt-9 {
+  margin-top: 2.25rem;
+}
 .mb-3 {
   margin-bottom: 0.75rem;
 }
 .mb-0 {
   margin-bottom: 0px;
-}
-.mt-9 {
-  margin-top: 2.25rem;
-}
-.mb-9 {
-  margin-bottom: 2.25rem;
 }
 .block {
   display: block;
@@ -2819,9 +2822,6 @@ body[dir="rtl"] .checkbox:checked,
 .py-4 {
   padding-top: 1rem;
   padding-bottom: 1rem;
-}
-.pt-9 {
-  padding-top: 2.25rem;
 }
 .text-center {
   text-align: center;
