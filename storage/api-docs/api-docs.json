@@ -1,0 +1,45 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Anurag Deep APIs",
+        "version": "1.0"
+    },
+    "servers": [
+        {
+            "url": "/api/v2"
+        }
+    ],
+    "paths": {
+        "/hosting-checker": {
+            "get": {
+                "tags": [
+                    "Hosting"
+                ],
+                "summary": "Get Hosting Data.",
+                "operationId": "e445ea8a32df9a0692625ad949b6e2b7",
+                "responses": {
+                    "200": {
+                        "description": "Response.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "title": {
+                                            "description": "API title response.",
+                                            "type": "string"
+                                        },
+                                        "descriptione": {
+                                            "description": "API descriptione response.",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
