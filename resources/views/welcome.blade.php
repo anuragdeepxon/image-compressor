@@ -17,6 +17,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <meta name="author" content="Themefisher">
     <meta name="generator" content="Themefisher Kross Template v1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="images/favicon.png" />
 
@@ -24,19 +25,30 @@
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet" type="text/css" />
     <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet'>
     <script src="{{ URL::asset('js/app.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/gh/WangYuLue/image-conversion/build/conversion.js"></script>
 
+    <script>
+        function previewFile(input) {
+            var file = $("input[type=file]").get(0).files[0];
+            if (file) {
+                var reader = new FileReader();
 
-    <!-- the fileinput plugin styling CSS file -->
-    <link href="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.2.5/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
+                reader.onload = function() {
+                    $("#previewImg").attr("src", reader.result);
+                }
 
-    <!-- the main fileinput plugin script JS file -->
-    <script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.2.5/js/fileinput.min.js"></script>
+                $('.imageArea').addClass('show')
+                $('.imageArea').removeClass('hide')
 
+                reader.readAsDataURL(file);
+
+            }
+        }
+    </script>
 
 </head>
 
-<body class="min-h-screen">
-
+<body class="">
 
 
     <div class="navbar bg-blue-700 fixed top-0 left-0 right-0 z-50">
@@ -50,244 +62,350 @@
         </div>
     </div>
 
-    <div class="min-h-screen  pb-9 bg-slate-900">
+    <div class="min-h-[85vh] bg-slate-900">
 
         <div class="space-pt"></div>
 
+
         <div class="md:container lg:pt-12 md:pt-12 sm:pt-12 md:mx-auto bg-Slate-100">
             <div class="text-center">
-
-
-                <!-- Image Field -->
-                <!-- <div class="form-group">
-                    <label for="customFile">Image:</label>
-                    <div class="custom-file">
-                        <div class="file-loading">
-                            <input id="image" name="image" class="image" type="file" data-min-file-count="0" data-theme="fas">
-                        </div>
-                    </div>
-                </div> -->
-
-
-
-                <!-- component -->
-                <main class="container mx-auto max-w-screen-lg h-full">
-                    <article class="relative flex flex-col shadow-3xl rounded-lg">
-                        <header class="py-12 flex flex-col justify-center items-center">
-                            <div class="custom-file">
-                                <input id="image" name="image" class="image" type="file" data-min-file-count="0" data-theme="fas">
-                            </div>
-                        </header>
-                    </article>
-                </main>
-
-                <style>
-                    .file-actions,
-                    .file-thumbnail-footer {
-                        display: none;
-                    }
-
-                    .krajee-default.file-preview-frame .kv-file-content {
-                        /* height: 200px !important; */
-                    }
-
-                    .file-drop-zone {
-                        width: 800px !important;
-                        min-height: 300px !important;
-                        max-height: 300px !important;
-                        border: 2px #9C2424 dashed;
-                    }
-
-                    .file-preview-image {
-                        width: auto !important;
-                        padding: 0px;
-                        -webkit-transition: .5s all;
-                        -moz-transition: .5s all;
-                        -ms-transition: .5s all;
-                        -o-transition: .5s all;
-                        transition: .5s all;
-                        box-shadow: 6px 5px 9px -7px rgba(0, 0, 0, 0.75);
-                        -webkit-box-shadow: 6px 5px 9px -7px rgba(0, 0, 0, 0.75);
-                        -moz-box-shadow: 6px 5px 9px -7px rgba(0, 0, 0, 0.75);
-                    }
-
-                    .file-preview-image:hover {
-                        box-shadow: 6px 5px 22px -7px rgba(0, 0, 0, 0.75);
-                        -webkit-box-shadow: 6px 5px 22px -7px rgba(0, 0, 0, 0.75);
-                        -moz-box-shadow: 6px 5px 22px -7px rgba(0, 0, 0, 0.75);
-                    }
-
-                    .krajee-default.file-preview-frame {
-                        padding: 0px;
-                        border: none;
-                        box-shadow: none !important;
-                        -webkit-box-shadow: none !important;
-                        -moz-box-shadow: none !important;
-                    }
-
-                    .krajee-default.file-preview-frame:hover {
-                        padding: 0px;
-                        border: none !important;
-                    }
-
-                    .file-preview-other-frame {
-                        height: 120px !important;
-                        width: auto !important;
-                    }
-
-                    .krajee-default .file-other-icon {
-                        font-size: 4em !important;
-                    }
-
-                    .file-error-message {
-                        font-size: 13px !important;
-                        padding: 7px !important;
-                    }
-
-                    .file-preview .fileinput-remove {
-                        display: none;
-                    }
-
-                    .kv-error-close {
-                        display: none;
-                    }
-                </style>
-
-                <script>
-                    $("#image").fileinput({
-                        allowedFileExtensions: ["jpg", "jpeg", "gif", "png"],
-                        maxFileSize: 20000,
-                        showUpload: false,
-                        dropZoneEnabled: true,
-                        msgPlaceholder: '',
-                        browseLabel: 'Browse',
-                        required: false,
-                        validateInitialCount: true,
-                        overwriteInitial: false,
-                        showUploadStats: true
-                    });
-                </script>
-
 
                 <div class="p-9">
                     <h1 class="lg:text-7xl text-5xl text-red-800 font-bold">Image Compressor</h1>
                     <p class="py-6">To compress Image, just upload here:</p>
                 </div>
 
+                <!-- component -->
+                <main class="container mx-auto max-w-screen-lg h-full">
+                    <article class="relative flex flex-col shadow-3xl rounded-lg">
+                        <header class="py-12 flex flex-col justify-center items-center">
 
-            </div>
-        </div>
+                            <label class="uploadArea flex justify-center w-full h-32 px-4 transition border-2 border-white-900 border-dashed rounded-md cursor-pointer hover:border-red-900">
+                                <span class="flex items-center space-x-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-white-900" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                                    </svg>
+
+                                    <span class="font-medium text-white-600">
+                                        Drop files to Attach, or
+                                        <span class="">browse</span>
+                                    </span>
+                                </span>
+                                <input type="file" class="" id="file" onchange="change()" hidden>
+                            </label>
+
+                            <input type="number" id="size" class="hide" placeholder="compressed image size" value=50 hidden>
+                            <input type="number" id="accuracy" placeholder="range 0.8~0.99" class="hide" value="0.99" hidden>
+                            <!-- <div class="m-3 alert alert-error shadow-lg" role="">
+                                if you compress png transparent images, please select 'image/png' type
+                            </div> -->
+                            <select class="hide" id="type">
+                                <option selected>Choose Image Type</option>
+                                <option value="image/png">image/png</option>
+                                <option value="image/jpeg">image/jpeg</optio <option value="image/gif">image/gif</option>
+                            </select>
+
+                            <select class="" id="orientation" hidden>
+                                <option selected>Choose...</option>
+                                <option value="1">1</option>
+                            </select>
 
 
+                            <div id="errorArea" class="hide mt-5">
+                                <div id="errorText" class='alert alert-error shadow-lg'></div>
+                            </div>
 
-        <!-- table -->
-        <div class="container mx-auto px-4">
-            <!-- <h1 class="text-5xl text-center font-bold p-3 bg-base-200">Information</h1> -->
-            <div class="text-center">
-                <div class="ml-1">
-                    <div class="overlay">
-                        <div class="atom-spinner hide">
-                            <div class="spinner-inner">
-                                <div class="spinner-line"></div>
-                                <div class="spinner-line"></div>
-                                <div class="spinner-line"></div>
+                            <div class="container mx-auto px-4 pt-5">
+                                <div class="text-center">
+                                    <center>
+                                        <div class="ml-1">
+                                            <div class="overlay">
+                                                <div class="atom-spinner hide">
+                                                    <div class="spinner-inner">
+                                                        <div class="spinner-line"></div>
+                                                        <div class="spinner-line"></div>
+                                                        <div class="spinner-line"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </center>
+                                </div>
+                            </div>
+
+                        </header>
+                    </article>
+                </main>
+
+
+                <div class="flex flex-col w-full lg:flex-row">
+                    <div class="grid flex-grow card rounded-box place-items-center">
+
+
+                        <div class="card w-96 bg-base-100 shadow-xl m-5">
+                            <figure class="px-10 pt-10 ">
+                                <div id="input" class="imageDesign shadow-3xl" style="max-width: 200px;">
+                                </div>
+                            </figure>
+                            <div class="card-body items-center text-center">
+                                <div class="card-actions">
+                                    <div class="stats">
+                                        <div class="stat">
+                                            <div class="stat-title">Original image</div>
+                                            <div class="stat-value" id="input_size"></div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <div class="divider lg:divider-horizontal">To</div>
+                    <div class="grid flex-grow card rounded-box place-items-center">
+
+                        <div class="card w-96 bg-base-100 shadow-xl m-5">
+                            <figure class="px-10 pt-10 rounded-md ">
+                                <div id="output" class="imageDesign shadow-3xl" style="max-width: 200px;">
+                                </div>
+                            </figure>
+                            <div class="card-body items-center text-center">
+                                <div class="card-actions">
+                                    <div class="stats">
+                                        <div class="stat">
+                                            <div class="stat-title">Compressed image</div>
+                                            <div class="stat-value" id="output_size"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
-            </div>
-
-            <div class="overflow-x-auto ">
-
-                <table class="table w-full">
-                    <!-- head -->
-                    <thead>
-                        <tr>
-                        </tr>
-                    </thead>
-
-                    <tbody id='tableData'>
-                        <p class="py-6" id="message"></p>
-
-                    </tbody>
 
 
-                </table>
+                <center>
+                    <div id="downloadImage" class="hide m-5 text-center">
+                        <button class="btn gap-2 m-3">
+                            Accuracy
+                            <div id="output_accuracy" class="badge badge-accent"></div>
+                        </button>
+
+                        <button class="btn btn-outline btn-wide mb-10" onclick="download()">Download Image</button>
+                    </div>
+                </center>
+
+                <script>
+                    const data = {
+                        file: null,
+                        compress_file: null,
+                        runtime: null
+                    }
+
+                    function getDom(domId) {
+                        return document.getElementById(domId)
+                    }
+
+                    async function change() {
+                        const file = getDom("file").files[0];
+                        data.file = file;
+
+                        $('.atom-spinner').addClass('show');
+                        $('.atom-spinner').removeClass('hide');
+
+                        $('#downloadImage').addClass('hide');
+                        $('#downloadImage').removeClass('show');
+
+                        var finalS = Math.round((data.file.size / 1024).toFixed(2));
+                        if (finalS < 200) {
+
+                            var errorText;
+                            errorText = document.querySelector("#errorText");
+                            errorText.innerText = "File is smaller than the specified size 200kb";
+
+                            console.log('File is smaller than the specified size 200kb');
+
+                            const imageArea = document.querySelector("#errorArea");
+                            imageArea.classList.add("show");
+                            imageArea.classList.remove("hide");
+
+                            throw new Error("finalS < 200 bgb");
+                        } else {
+                            const imageArea = document.querySelector("#errorArea");
+                            imageArea.classList.add("hide");
+                            imageArea.classList.remove("show");
+                        }
+
+                        const image = await filetoImage(file);
+                        showMessage(file, image, "input");
+
+                        compressF()
+                    }
+
+                    function showMessage(file, image, name) {
+                        const size = (file.size / 1024).toFixed(2);
+                        if (name === "output") {
+                            const origin_size = getDom("size").value;
+                            getDom(name + "_size").innerText = Math.round(size) + " KB";
+
+
+                            getDom(name + "_accuracy").innerText = ((1 - Math.abs(1 - size / origin_size)) * 100).toFixed(2);
+
+                        } else {
+                            getDom(name + "_size").innerText = size + " KB";
+                        }
+                        getDom(name).innerHTML = '';
+                        getDom(name).append(image);
+                    }
+
+                    async function compressF() {
+                        var finalS = Math.round((data.file.size / 1024).toFixed(2));
+
+                        const file = data.file;
+                        const size = 200;
+                        const accuracy = 1;
+                        const type = getDom("type").value;
+                        const startTime = Date.now();
+                        const compress_file = await imageConversion.compressAccurately(file, {
+                            size,
+                            accuracy,
+                            type
+                        });
+                        const check = await checkImage(compress_file);
+                        data.compress_file = compress_file;
+                    }
+
+                    async function checkImage(file) {
+                        console.log((file.size / 1024).toFixed(2));
+                        compress50(file, 0.2);
+                        return;
+                    }
+
+                    let init;
+                    init = 0;
+
+                    let fin;
+                    fin = 10;
+
+                    async function checkImage2(file) {
+                        var finalS = Math.round((file.size / 1024).toFixed(2));
+                        const startTime = Date.now();
+
+                        console.log(finalS);
+
+                        if (finalS > 50) {
+                            fin = fin - 0.5;
+
+                            if (fin < 0.1) {
+                                data.runtime = Date.now() - startTime;
+                                const compress_image = await filetoImage(file);
+                                data.compress_file = file;
+                                showMessage(file, compress_image, "output");
+
+                                throw new Error("fin < 0.01");
+                            }
+
+                            reCompress(file, (fin));
+                        } else if (finalS < 50) {
+                            init = init + 0.1;
+
+                            if (init > 9.9) {
+                                data.runtime = Date.now() - startTime;
+                                const compress_image = await filetoImage(file);
+                                data.compress_file = file;
+                                showMessage(file, compress_image, "output");
+
+                                throw new Error("init > 9.99");
+                            }
+
+                            reCompress(file, (init));
+
+                        } else if (finalS == 50) {
+                            data.runtime = Date.now() - startTime;
+                            const compress_image = await filetoImage(file);
+                            data.compress_file = file;
+                            showMessage(file, compress_image, "output");
+
+                            $('#downloadImage').addClass('show');
+                            $('#downloadImage').removeClass('hide');
+
+                            $('.atom-spinner').addClass('hide');
+                            $('.atom-spinner').removeClass('show');
+                        }
+                    }
+
+                    async function reCompress(Origfile, num) {
+                        console.log(num);
+
+                        const file = Origfile;
+                        const size = 50;
+                        const accuracy = 0.99;
+                        const type = getDom("type").value;
+                        const scale = num;
+                        const startTime = Date.now();
+                        const compress_file = await imageConversion.compressAccurately(file, {
+                            size,
+                            accuracy,
+                            type,
+                            scale
+                        });
+
+                        await checkImage2(compress_file);
+                    }
+
+                    async function compress50(Origfile, num) {
+
+                        const file = Origfile;
+                        const size = 50;
+                        const accuracy = 0.99;
+                        const type = getDom("type").value;
+                        const scale = 0.2;
+                        const startTime = Date.now();
+                        const compress_file = await imageConversion.compressAccurately(file, {
+                            size,
+                            accuracy,
+                            type,
+                            scale
+                        });
+                        const check = await checkImage2(compress_file);
+                        data.runtime = Date.now() - startTime;
+                        const compress_image = await filetoImage(compress_file);
+                        data.compress_file = compress_file;
+                        showMessage(compress_file, compress_image, "output");
+                    }
+
+                    async function filetoImage(file) {
+                        const dataURL = await imageConversion.filetoDataURL(file);
+                        return await imageConversion.dataURLtoImage(dataURL);
+                    }
+
+                    function download() {
+                        imageConversion.downloadFile(data.compress_file);
+                    }
+                </script>
 
             </div>
         </div>
-        <!-- /table -->
 
+
+        <script type="text/javascript">
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+        </script>
 
         <!-- Start Data Loading from Backend  -->
-        <script>
+        <script type="text/javascript">
             $(document).ready(function() {
-                $('#domainForm').on('submit', function(e) {
-                    $('#tableData').html(null);
-                    // $('#message').html("Wait... Not Available or Incorrect Domain");
-                    e.preventDefault()
-                    if (true) {
-                        let domainURL = $('#domain').val();
-                        if (!domainURL) {
-                            $('#message').html("Please enter domain");
-                            $('#tableData').html(null);
-                            return null;
-                        }
-                        $.ajax({
-                            type: "POST",
-                            url: "{{ url('/hosting-checker/domain') }}",
-                            data: {
-                                "_token": "{{ csrf_token() }}",
-                                domain: domainURL,
-                            },
-                            dataType: "json",
-                            encode: true,
-                            beforeSend: function() {
-                                $('.atom-spinner').addClass('show')
-                                $('.atom-spinner').removeClass('hide')
-
-                                $('#message').addClass('hide')
-                            },
-                            success: function(result) {},
-                            error: function(data) {
-                                $('#tableData').html(null);
-                                $('#message').html("Incorrect Domain or Data does not exist");
-                            },
-                            complete: function() {
-                                $('.atom-spinner').addClass('hide')
-                                $('.atom-spinner').removeClass('show')
-
-                                $('#message').removeClass('hide')
-                            },
-
-                        }).done(function(result) {
-                            if (result.success == true) {
-                                var arr = "";
-                                $.each(result.data, function(k, v) {
-                                    console.log(v)
-                                    arr = arr + "<tr class='hover'><td>" + k + "</td>" + "<td>" + v + "</td></tr>";
-                                    $('#tableData').html(arr);
-                                });
-                                $('#message').html(null);
-                            } else {
-                                $('#tableData').html(result.message);
-                            }
-                        });
-                    }
+                $("input[name=image]").change(function(e) {
+                    $(this).closest("form").submit();
                 });
             });
         </script>
         <!-- End Data Loading from Backend  -->
 
-        <style>
-            .space-mt {
-                margin-top: 100px;
-            }
-
-            .space-pt {
-                padding-top: 100px;
-            }
-        </style>
+        <!-- <div class="space-pt"></div> -->
     </div>
     <!-- footer -->
     <footer class="footer footer-center p-10 bg-blue-700 text-primary-content">
@@ -316,94 +434,6 @@
     </footer>
     <!-- /footer -->
 
-
-    <style>
-        /* Start Loader Style  */
-        .show {
-            display: block !important;
-        }
-
-        .hide {
-            display: none !important;
-        }
-
-        .atom-spinner,
-        .atom-spinner * {
-            box-sizing: border-box;
-        }
-
-        .atom-spinner {
-            height: 60px;
-            width: 60px;
-            overflow: hidden;
-        }
-
-        .atom-spinner .spinner-inner {
-            position: relative;
-            display: block;
-            height: 100%;
-            width: 100%;
-        }
-
-        .atom-spinner .spinner-circle {
-            display: block;
-            position: absolute;
-            color: #9C2424;
-            font-size: calc(60px * 0.24);
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-
-        .atom-spinner .spinner-line {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            animation-duration: 1s;
-            border-left-width: calc(60px / 25);
-            border-top-width: calc(60px / 25);
-            border-left-color: #9C2424;
-            border-left-style: solid;
-            border-top-style: solid;
-            border-top-color: transparent;
-        }
-
-        .atom-spinner .spinner-line:nth-child(1) {
-            animation: atom-spinner-animation-1 1s linear infinite;
-            transform: rotateZ(120deg) rotateX(66deg) rotateZ(0deg);
-        }
-
-        .atom-spinner .spinner-line:nth-child(2) {
-            animation: atom-spinner-animation-2 1s linear infinite;
-            transform: rotateZ(240deg) rotateX(66deg) rotateZ(0deg);
-        }
-
-        .atom-spinner .spinner-line:nth-child(3) {
-            animation: atom-spinner-animation-3 1s linear infinite;
-            transform: rotateZ(360deg) rotateX(66deg) rotateZ(0deg);
-        }
-
-        @keyframes atom-spinner-animation-1 {
-            100% {
-                transform: rotateZ(120deg) rotateX(66deg) rotateZ(360deg);
-            }
-        }
-
-        @keyframes atom-spinner-animation-2 {
-            100% {
-                transform: rotateZ(240deg) rotateX(66deg) rotateZ(360deg);
-            }
-        }
-
-        @keyframes atom-spinner-animation-3 {
-            100% {
-                transform: rotateZ(360deg) rotateX(66deg) rotateZ(360deg);
-            }
-        }
-
-        /* End Loader Style  */
-    </style>
 </body>
 
 </html>
