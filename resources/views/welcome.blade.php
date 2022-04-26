@@ -242,16 +242,16 @@
                     }
 
                     function showMessage(file, image, name) {
-                        const size = (file.size / 1024).toFixed(2);
+                        // const size = (file.size / 1024).toFixed(2);
+                        const size = Math.round((file.size / 1024).toFixed(2));
                         if (name === "output") {
                             const origin_size = getDom("size").value;
-                            getDom(name + "_size").innerText = Math.round(size) + " KB";
-
+                            getDom(name + "_size").innerText = size + " KB";
 
                             getDom(name + "_accuracy").innerText = ((1 - Math.abs(1 - size / origin_size)) * 100).toFixed(2);
 
                         } else {
-                            getDom(name + "_size").innerText = size + " KB";
+                            getDom(name + "_size").innerText = Math.round(size) + " KB";
                         }
                         getDom(name).innerHTML = '';
                         getDom(name).append(image);
