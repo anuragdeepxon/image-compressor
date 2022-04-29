@@ -89,7 +89,7 @@
     </div>
 
     <header>
-        <nav class="fixed mx-auto top-0 left-0 right-0 z-[500] shadow-xl flex bg-[#0f5dfa] 2xl:px-[11%] xl:px-[11%] lg:px-[11%] md:px-[10rem] sm:px-10 px-5 ">
+        <nav style="height: 50px;" class="fixed mx-auto top-0 left-0 right-0 z-[500] shadow-xl flex bg-[#0f5dfa] 2xl:px-[11%] xl:px-[11%] lg:px-[11%] md:px-[10rem] sm:px-10 px-5 ">
 
             <!-- Left Navigation -->
             <div class="flex-1 flex justify-center mr-auto">
@@ -112,7 +112,7 @@
                 <div class="">
 
                     <!-- <a href="/"><img src="{{ URL::asset('images/logo.png') }}" class="w-16 md:w-20 lg:w-20 p-2 mt-5 inline" alt="Image To 50kb" /> -->
-                    <h1 class="mt-3 p-2 font-bold text-white text-xl md:text-3xl lg:text-3xl  self-center" style="float: right;">Image To 50kb</h1>
+                    <h1 class="mt-2 md:mt-0 lg:mt-0  p-1 font-bold text-white text-xl md:text-3xl lg:text-3xl  self-center" style="float: right;">Image To 50kb</h1>
                     </a>
 
                 </div>
@@ -140,18 +140,12 @@
         <div class="space-pt"></div>
 
         <div class="text-center">
-            <div class="p-9">
-                <h1 class="lg:text-6xl text-4xl text-slate-800 font-bold leading-normal lg:leading-loose md:leading-loose py-2">Resize Or Compress Image To 50kb Online
-                </h1>
-                <p class="leading-relaxed py-2">Welcome to the best image to 50kb image converter, in this tool just upload any image format, this tool will resize or compress it to an accurate 50kb size.</p>
-            </div>
-
             <!-- component -->
             <main>
                 <article class="relative flex flex-col shadow-3xl rounded-lg">
                     <header class="py-12 flex flex-col justify-center items-center">
 
-                        <label class="uploadArea flex justify-center w-full h-32 px-4 transition border-2 border-slate-900 border-dashed rounded-md cursor-pointer hover:border-red-900">
+                        <label class="uploadArea flex justify-center md:w-96 lg:w-96 w-[80%] h-32 px-4 transition border-2 border-slate-900 border-dashed rounded-md cursor-pointer hover:border-red-900">
                             <span class="flex items-center space-x-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-white-900" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
@@ -277,6 +271,22 @@
     <!-- Details section start  -->
     <div class="sm:container mx-auto lg:px-40 md:px-10 sm:px-10 px-5">
         <div class="pt-[3rem]">
+
+
+
+            <div class="card bg-base-100 shadow-xl my-6">
+                <div class="card-body">
+                    <h2 class="card-title">Resize Or Compress Image To 50kb Online</h2>
+                    <p class="py-3 leading-normal text-slate-900 text-justify">The step is very simple for resizing images to 50kb just follow the steps:
+                        <br>
+                        Welcome to the best image to 50kb image converter, in this tool just upload any image format, this tool will resize or compress it to an accurate 50kb size.
+
+                    </p>
+                </div>
+            </div>
+
+
+
 
             <div class="card bg-base-100 shadow-xl my-6">
                 <div class="card-body">
@@ -464,19 +474,19 @@
             $('#downloadImage').removeClass('show');
 
             var finalS = Math.round((data.file.size / 1024).toFixed(2));
-            if (finalS < 200) {
+            if (finalS < 60) {
 
                 var errorText;
                 errorText = document.querySelector("#errorText");
-                errorText.innerText = "File is smaller than the specified size 200kb";
+                errorText.innerText = "File is smaller than the specified size 60kb";
 
-                console.log('File is smaller than the specified size 200kb');
+                console.log('File is smaller than the specified size 60kb');
 
                 const imageArea = document.querySelector("#errorArea");
                 imageArea.classList.add("show");
                 imageArea.classList.remove("hide");
 
-                throw new Error("finalS < 200 bgb");
+                throw new Error("finalS < 60 bgb");
             } else {
                 const imageArea = document.querySelector("#errorArea");
                 imageArea.classList.add("hide");
@@ -509,7 +519,7 @@
             var finalS = Math.round((data.file.size / 1024).toFixed(2));
 
             const file = data.file;
-            const size = 200;
+            const size = 60;
             const accuracy = 1;
             const type = getDom("type").value;
             const startTime = Date.now();
