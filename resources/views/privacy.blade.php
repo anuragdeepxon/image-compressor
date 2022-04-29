@@ -31,8 +31,8 @@
             <div class="arya-fly-top-out left relative">
                 <div class="arya-fly-top-in">
                     <div id="arya-fly-logo" class="left relative logo">
-                        <!-- <a href="/"><img src="{{ URL::asset('images/logo.png') }}" class="" alt="ImageTo50kb" /> -->
-                        <h1 class="text-2xl text-white font-bold ">Image To 50kb</h1>
+                        <!-- <a href="/"><img src="{{ URL::asset('images/logo.png') }}" class="" alt="Image To 50kb" /> -->
+                        <h1 class="text-2xl font-bold ">Image To 50kb</h1>
                         </a>
                     </div>
                 </div>
@@ -48,9 +48,9 @@
             <nav class="arya-fly-nav-menu pt-6 left relative">
                 <div class="menu">
                     <ul>
-                        <li class="text-white"><a href="/">Home</a></li>
-                        <li class="text-white"><a href="/about-site">About Site</a></li>
-                        <li class="text-white"><a href="/privacy-policy">Privacy Policy</a></li>
+                        <li class=""><a href="/">Home</a></li>
+                        <li class=""><a href="/about-site">About Site</a></li>
+                        <li class=""><a href="/privacy-policy">Privacy Policy</a></li>
                     </ul>
                 </div>
             </nav>
@@ -63,7 +63,7 @@
     </div>
 
     <header>
-        <nav class="fixed mx-auto top-0 left-0 right-0 z-[500] shadow-xl flex bg-[#2e74ff] 2xl:px-[11%] xl:px-[11%] lg:px-[11%] md:px-[10rem] sm:px-10 px-5 ">
+        <nav class="fixed mx-auto top-0 left-0 right-0 z-[500] shadow-xl flex bg-[#2BC380] 2xl:px-[11%] xl:px-[11%] lg:px-[11%] md:px-[10rem] sm:px-10 px-5 ">
 
             <!-- Left Navigation -->
             <div class="flex-1 flex justify-center mr-auto">
@@ -82,11 +82,11 @@
             </div>
 
             <!-- Logo -->
-            <div class="mx-12">
+            <div class="">
                 <div class="">
 
-                    <!-- <a href="/"><img src="{{ URL::asset('images/logo.png') }}" class="w-16 md:w-20 lg:w-20 mt-5 inline" alt="ImageTo50kb" /> -->
-                    <h1 class="mt-3 p-2 font-bold text-white text-2xl md:text-3xl lg:text-3xl self-center" style="float: right;">Image To 50kb</h1>
+                    <!-- <a href="/"><img src="{{ URL::asset('images/logo.png') }}" class="w-16 md:w-20 lg:w-20 p-2 mt-5 inline" alt="Image To 50kb" /> -->
+                    <h1 class="mt-5 p-2 font-bold text-white text-xl md:text-3xl lg:text-3xl  self-center" style="float: right;">Image To 50kb</h1>
                     </a>
 
                 </div>
@@ -94,16 +94,20 @@
 
             <!-- Right Navigation -->
             <div class="flex-1 flex justify-center ml-auto">
-                <a class="mx-2"></a>
+                <a class=""></a>
             </div>
+
+
         </nav>
+
+
         <nav class="flex fixed w-screen">
+
         </nav>
     </header>
 
     <div id="overlay" class="arya-fly-fade"></div>
     <!-- Header end  -->
-
 
 
 
@@ -159,11 +163,11 @@
 
                         <h2 class="card-title pt-10">Log Files</h2>
                         <p class="py-1 leading-normal text-slate-900 text-justify">
-                        imageto50kb.com follows a standard procedure of using log files. These files log visitors when they visit websites. 
-                        All hosting companies do this and a part of hosting services' analytics. 
-                        The information collected by log files include internet protocol (IP) addresses, browser type, Internet Service Provider (ISP), date and time stamp, referring/exit pages, and possibly the number of clicks. These are not linked to any information that is personally identifiable. 
-                        The purpose of the information is for analyzing trends, administering the site, tracking users' movement on the website, and gathering demographic information  
-                    </p>
+                            imageto50kb.com follows a standard procedure of using log files. These files log visitors when they visit websites.
+                            All hosting companies do this and a part of hosting services' analytics.
+                            The information collected by log files include internet protocol (IP) addresses, browser type, Internet Service Provider (ISP), date and time stamp, referring/exit pages, and possibly the number of clicks. These are not linked to any information that is personally identifiable.
+                            The purpose of the information is for analyzing trends, administering the site, tracking users' movement on the website, and gathering demographic information
+                        </p>
 
 
                         <h2 class="card-title pt-10">Cookies and Web Beacons</h2>
