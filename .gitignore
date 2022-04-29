@@ -14,7 +14,7 @@ yarn-error.log
 /.vscode
 
 /public/js/app.js
-composer.lock
+# composer.lock
 /gitignore
 
 .phpunit.result.cache
