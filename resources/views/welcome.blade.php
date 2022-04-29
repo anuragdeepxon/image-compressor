@@ -58,7 +58,7 @@
                 <div class="arya-fly-top-in">
                     <div id="arya-fly-logo" class="left relative logo">
                         <!-- <a href="/"><img src="{{ URL::asset('images/logo.png') }}" class="" alt="Image To 50kb" /> -->
-                        <h1 class="text-2xl font-bold text-white">ImageTo50kb.com</h1>
+                        <h1 class="text-2xl font-bold text-white">Image To 50kb</h1>
                         </a>
                     </div>
                 </div>
@@ -112,7 +112,7 @@
                 <div class="">
 
                     <!-- <a href="/"><img src="{{ URL::asset('images/logo.png') }}" class="w-16 md:w-20 lg:w-20 p-2 mt-5 inline" alt="Image To 50kb" /> -->
-                    <h1 class="mt-2 md:mt-0 lg:mt-0  p-1 font-bold text-white text-xl md:text-3xl lg:text-3xl  self-center" style="float: right;">ImageTo50kb.com</h1>
+                    <h1 class="mt-2 md:mt-0 lg:mt-0  p-1 font-bold text-white text-xl md:text-3xl lg:text-3xl  self-center" style="float: right;">Image To 50kb</h1>
                     </a>
 
                 </div>
@@ -268,6 +268,290 @@
 
 
 
+
+    <script>
+        var image_type = 'image/jpeg';
+
+        function refresh() {
+            location.reload()
+        }
+
+
+        function getExtension(filename) {
+            var parts = filename.split('.');
+            return parts[parts.length - 1];
+        }
+
+        function isImage(filename) {
+            var ext = getExtension(filename);
+
+            if (ext.toLowerCase() == 'jpg') {
+                image_type = 'image/jpeg';
+            } else if (ext.toLowerCase() == 'gif') {
+                image_type = 'image/gif';
+            } else if (ext.toLowerCase() == 'jpeg') {
+                image_type = 'image/jpeg';
+            } else if (ext.toLowerCase() == 'png') {
+                image_type = 'image/png';
+            } else {
+                var errorText;
+                errorText = document.querySelector("#errorText");
+                errorText.innerText = "Please Upload Image Only";
+
+                const imageArea = document.querySelector("#errorArea");
+                imageArea.classList.add("show");
+                imageArea.classList.remove("hide");
+
+                throw new Error("Image")
+            }
+
+            return false;
+        }
+
+        const data = {
+            file: null,
+            compress_file: null,
+            runtime: null
+        }
+
+        function getDom(domId) {
+            return document.getElementById(domId)
+        }
+
+        async function change() {
+            const file = getDom("file").files[0];
+            data.file = file;
+
+            isImage(file.name);
+
+            $('.atom-spinner').addClass('show');
+            $('.atom-spinner').removeClass('hide');
+
+            $('#downloadImage').addClass('hide');
+            $('#downloadImage').removeClass('show');
+
+            var finalS = Math.round((data.file.size / 1024).toFixed(2));
+            if (finalS < 50) {
+
+                var errorText;
+                errorText = document.querySelector("#errorText");
+                errorText.innerText = "File is smaller than the specified size 50kb";
+
+                console.log('File is smaller than the specified size 50kb');
+
+                const imageArea = document.querySelector("#errorArea");
+                imageArea.classList.add("show");
+                imageArea.classList.remove("hide");
+
+                throw new Error("finalS < 50 bgb");
+            } else {
+                const imageArea = document.querySelector("#errorArea");
+                imageArea.classList.add("hide");
+                imageArea.classList.remove("show");
+            }
+
+            if (finalS < 300) {
+                const image = await filetoImage(file);
+                showMessage(file, image, "input");
+                compressF()
+
+            } else {
+                console.log('big');
+                const image = await filetoImage(file);
+                showMessage(file, image, "input");
+                compressF2()
+            }
+
+
+        }
+
+        function showMessage(file, image, name) {
+            const size = Math.round((file.size / 1024).toFixed(2));
+            if (name === "output") {
+                const origin_size = getDom("size").value;
+                getDom(name + "_size").innerText = size + " KB";
+            } else {
+                getDom(name + "_size").innerText = Math.round(size) + " KB";
+            }
+            getDom(name).innerHTML = '';
+            getDom(name).append(image);
+        }
+
+
+        // Compress First 2 Start
+        async function compressF2() {
+            var finalS = Math.round((data.file.size / 1024).toFixed(2));
+            const file = data.file;
+            const size = 200;
+            const accuracy = 1;
+            const scale = 0.3;
+            const type = image_type;
+            const startTime = Date.now();
+            const compress_file = await imageConversion.compressAccurately(file, {
+                size,
+                accuracy,
+                type,
+                scale
+            });
+            const check = await checkImage(compress_file);
+            data.compress_file = compress_file;
+
+            const compress_image = await filetoImage(compress_file);
+            data.compress_file = compress_file;
+            showMessage(compress_file, compress_image, "output");
+        }
+        // Compress First 2 End
+
+
+        // Compress First Start
+        async function compressF() {
+            var finalS = Math.round((data.file.size / 1024).toFixed(2));
+            const file = data.file;
+            const size = 60;
+            const accuracy = 1;
+            const type = image_type;
+            const startTime = Date.now();
+            const compress_file = await imageConversion.compressAccurately(file, {
+                size,
+                accuracy,
+                type
+            });
+            const check = await checkImage(compress_file);
+            data.compress_file = compress_file;
+
+            const compress_image = await filetoImage(compress_file);
+            data.compress_file = compress_file;
+            showMessage(compress_file, compress_image, "output");
+        }
+        // Compress First End
+
+
+
+        // Re Compress Start
+        async function reCompress(Origfile, num) {
+            console.log(num);
+
+            const file = Origfile;
+            const size = 50;
+            const accuracy = 0.99;
+            const type = image_type;
+            const scale = num;
+            const startTime = Date.now();
+
+            const compress_file = await imageConversion.compressAccurately(file, {
+                size,
+                accuracy,
+                type,
+                scale
+            });
+            await checkImage2(compress_file);
+
+            const compress_image = await filetoImage(compress_file);
+            data.compress_file = compress_file;
+            showMessage(compress_file, compress_image, "output");
+        }
+        // Re Compress End
+
+
+        // Compress Second Start
+        async function compress50(Origfile, num) {
+
+            const file = Origfile;
+            const size = 50;
+            const accuracy = 0.99;
+            const type = image_type;
+            const scale = 1;
+            const startTime = Date.now();
+            const compress_file = await imageConversion.compressAccurately(file, {
+                size,
+                accuracy,
+                type,
+                scale
+            });
+            const check = await checkImage2(compress_file);
+            data.runtime = Date.now() - startTime;
+            const compress_image = await filetoImage(compress_file);
+            data.compress_file = compress_file;
+            showMessage(compress_file, compress_image, "output");
+        }
+        // Compress Second Start
+
+
+        async function checkImage(file) {
+            console.log((file.size / 1024).toFixed(2));
+            compress50(file);
+            return;
+        }
+
+        let init;
+        init = 0;
+
+        let fin;
+        fin = 10;
+
+        // Check Image Final Start 
+        async function checkImage2(file) {
+            var finalS = Math.round((file.size / 1024).toFixed(2));
+            const startTime = Date.now();
+
+            console.log(finalS);
+
+            if (finalS > 50) {
+                fin = fin - 0.5;
+
+                if (fin < 0.1) {
+                    data.runtime = Date.now() - startTime;
+                    const compress_image = await filetoImage(file);
+                    data.compress_file = file;
+                    showMessage(file, compress_image, "output");
+
+                    throw new Error("fin < 0.01");
+                }
+
+                reCompress(file, (fin));
+            } else if (finalS < 50) {
+                init = init + 0.1;
+
+                if (init > 9.9) {
+                    data.runtime = Date.now() - startTime;
+                    const compress_image = await filetoImage(file);
+                    data.compress_file = file;
+                    showMessage(file, compress_image, "output");
+
+                    throw new Error("init > 9.99");
+                }
+
+                reCompress(file, (init));
+
+            } else if (finalS == 50) {
+                data.runtime = Date.now() - startTime;
+                const compress_image = await filetoImage(file);
+                data.compress_file = file;
+                showMessage(file, compress_image, "output");
+
+                $('#downloadImage').addClass('show');
+                $('#downloadImage').removeClass('hide');
+
+                $('.atom-spinner').addClass('hide');
+                $('.atom-spinner').removeClass('show');
+            }
+        }
+        // Check Image Final end 
+
+
+        async function filetoImage(file) {
+            const dataURL = await imageConversion.filetoDataURL(file);
+            return await imageConversion.dataURLtoImage(dataURL);
+        }
+
+        function download() {
+            imageConversion.downloadFile(data.compress_file);
+        }
+    </script>
+
+
+
+
     <!-- Details section start  -->
     <div class="sm:container mx-auto lg:px-40 md:px-10 sm:px-10 px-5">
         <div class="pt-[3rem]">
@@ -412,234 +696,6 @@
 
 
 
-    <script>
-        var image_type = 'image/jpeg';
-
-        function refresh() {
-            location.reload()
-        }
-
-
-        function getExtension(filename) {
-            var parts = filename.split('.');
-            return parts[parts.length - 1];
-        }
-
-        function isImage(filename) {
-            var ext = getExtension(filename);
-
-            if (ext.toLowerCase() == 'jpg') {
-                image_type = 'image/jpeg';
-            } else if (ext.toLowerCase() == 'gif') {
-                image_type = 'image/gif';
-            } else if (ext.toLowerCase() == 'jpeg') {
-                image_type = 'image/jpeg';
-            } else if (ext.toLowerCase() == 'png') {
-                image_type = 'image/png';
-            } else {
-                var errorText;
-                errorText = document.querySelector("#errorText");
-                errorText.innerText = "Please Upload Image Only";
-
-                const imageArea = document.querySelector("#errorArea");
-                imageArea.classList.add("show");
-                imageArea.classList.remove("hide");
-
-                throw new Error("Image")
-            }
-
-            return false;
-        }
-
-        const data = {
-            file: null,
-            compress_file: null,
-            runtime: null
-        }
-
-        function getDom(domId) {
-            return document.getElementById(domId)
-        }
-
-        async function change() {
-            const file = getDom("file").files[0];
-            data.file = file;
-
-            isImage(file.name);
-
-            $('.atom-spinner').addClass('show');
-            $('.atom-spinner').removeClass('hide');
-
-            $('#downloadImage').addClass('hide');
-            $('#downloadImage').removeClass('show');
-
-            var finalS = Math.round((data.file.size / 1024).toFixed(2));
-            if (finalS < 60) {
-
-                var errorText;
-                errorText = document.querySelector("#errorText");
-                errorText.innerText = "File is smaller than the specified size 60kb";
-
-                console.log('File is smaller than the specified size 60kb');
-
-                const imageArea = document.querySelector("#errorArea");
-                imageArea.classList.add("show");
-                imageArea.classList.remove("hide");
-
-                throw new Error("finalS < 60 bgb");
-            } else {
-                const imageArea = document.querySelector("#errorArea");
-                imageArea.classList.add("hide");
-                imageArea.classList.remove("show");
-            }
-
-            const image = await filetoImage(file);
-            showMessage(file, image, "input");
-
-            compressF()
-        }
-
-        function showMessage(file, image, name) {
-            // const size = (file.size / 1024).toFixed(2);
-            const size = Math.round((file.size / 1024).toFixed(2));
-            if (name === "output") {
-                const origin_size = getDom("size").value;
-                getDom(name + "_size").innerText = size + " KB";
-
-                // getDom(name + "_accuracy").innerText = ((1 - Math.abs(1 - size / origin_size)) * 100).toFixed(2);
-
-            } else {
-                getDom(name + "_size").innerText = Math.round(size) + " KB";
-            }
-            getDom(name).innerHTML = '';
-            getDom(name).append(image);
-        }
-
-        async function compressF() {
-            var finalS = Math.round((data.file.size / 1024).toFixed(2));
-
-            const file = data.file;
-            const size = 60;
-            const accuracy = 1;
-            const type = getDom("type").value;
-            const startTime = Date.now();
-            const compress_file = await imageConversion.compressAccurately(file, {
-                size,
-                accuracy,
-                type
-            });
-            const check = await checkImage(compress_file);
-            data.compress_file = compress_file;
-        }
-
-        async function checkImage(file) {
-            console.log((file.size / 1024).toFixed(2));
-            compress50(file, 0.2);
-            return;
-        }
-
-        let init;
-        init = 0;
-
-        let fin;
-        fin = 10;
-
-        async function checkImage2(file) {
-            var finalS = Math.round((file.size / 1024).toFixed(2));
-            const startTime = Date.now();
-
-            console.log(finalS);
-
-            if (finalS > 50) {
-                fin = fin - 0.5;
-
-                if (fin < 0.1) {
-                    data.runtime = Date.now() - startTime;
-                    const compress_image = await filetoImage(file);
-                    data.compress_file = file;
-                    showMessage(file, compress_image, "output");
-
-                    throw new Error("fin < 0.01");
-                }
-
-                reCompress(file, (fin));
-            } else if (finalS < 50) {
-                init = init + 0.1;
-
-                if (init > 9.9) {
-                    data.runtime = Date.now() - startTime;
-                    const compress_image = await filetoImage(file);
-                    data.compress_file = file;
-                    showMessage(file, compress_image, "output");
-
-                    throw new Error("init > 9.99");
-                }
-
-                reCompress(file, (init));
-
-            } else if (finalS == 50) {
-                data.runtime = Date.now() - startTime;
-                const compress_image = await filetoImage(file);
-                data.compress_file = file;
-                showMessage(file, compress_image, "output");
-
-                $('#downloadImage').addClass('show');
-                $('#downloadImage').removeClass('hide');
-
-                $('.atom-spinner').addClass('hide');
-                $('.atom-spinner').removeClass('show');
-            }
-        }
-
-        async function reCompress(Origfile, num) {
-            console.log(num);
-
-            const file = Origfile;
-            const size = 50;
-            const accuracy = 0.99;
-            const type = getDom("type").value;
-            const scale = num;
-            const startTime = Date.now();
-            const compress_file = await imageConversion.compressAccurately(file, {
-                size,
-                accuracy,
-                type,
-                scale
-            });
-
-            await checkImage2(compress_file);
-        }
-
-        async function compress50(Origfile, num) {
-
-            const file = Origfile;
-            const size = 50;
-            const accuracy = 0.99;
-            const type = getDom("type").value;
-            const scale = 0.2;
-            const startTime = Date.now();
-            const compress_file = await imageConversion.compressAccurately(file, {
-                size,
-                accuracy,
-                type,
-                scale
-            });
-            const check = await checkImage2(compress_file);
-            data.runtime = Date.now() - startTime;
-            const compress_image = await filetoImage(compress_file);
-            data.compress_file = compress_file;
-            showMessage(compress_file, compress_image, "output");
-        }
-
-        async function filetoImage(file) {
-            const dataURL = await imageConversion.filetoDataURL(file);
-            return await imageConversion.dataURLtoImage(dataURL);
-        }
-
-        function download() {
-            imageConversion.downloadFile(data.compress_file);
-        }
-    </script>
 
 
 
