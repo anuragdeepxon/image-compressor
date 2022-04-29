@@ -26,7 +26,13 @@ Route::controller(HomeController::class)->group(function () {
 
 Route::post('/compressor/image', [CompressorAPIController::class, 'image_compressor']);
 
+Route::get('/about-site', function () {
+    return view('about');
+});
 
+Route::get('/privacy-policy', function () {
+    return view('privacy');
+});
 
 Auth::routes();
 
