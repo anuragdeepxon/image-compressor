@@ -32,7 +32,7 @@
                 <div class="arya-fly-top-in">
                     <div id="arya-fly-logo" class="left relative logo">
                         <!-- <a href="/"><img src="{{ URL::asset('images/logo.png') }}" class="" alt="Image To 50kb" /> -->
-                        <h1 class="text-2xl font-bold text-white">Image To 50kb</h1>
+                        <h1 class="text-2xl font-bold text-white">ImageTo50kb.com</h1>
                         </a>
                     </div>
                 </div>
@@ -86,7 +86,7 @@
                 <div class="">
 
                     <!-- <a href="/"><img src="{{ URL::asset('images/logo.png') }}" class="w-16 md:w-20 lg:w-20 p-2 mt-5 inline" alt="Image To 50kb" /> -->
-                    <h1 class="mt-3 p-2 font-bold text-white text-xl md:text-3xl lg:text-3xl  self-center" style="float: right;">Image To 50kb</h1>
+                    <h1 class="mt-3 p-2 font-bold text-white text-xl md:text-3xl lg:text-3xl  self-center" style="float: right;">ImageTo50kb.com</h1>
                     </a>
 
                 </div>
