@@ -384,7 +384,7 @@
             const file = data.file;
             const size = 200;
             const accuracy = 1;
-            const scale = 0.3;
+            const scale = 0.2;
             const type = image_type;
             const startTime = Date.now();
             const compress_file = await imageConversion.compressAccurately(file, {
@@ -505,6 +505,12 @@
                     data.compress_file = file;
                     showMessage(file, compress_image, "output");
 
+                    $('#downloadImage').addClass('show');
+                    $('#downloadImage').removeClass('hide');
+
+                    $('.atom-spinner').addClass('hide');
+                    $('.atom-spinner').removeClass('show');
+
                     throw new Error("fin < 0.01");
                 }
 
@@ -517,6 +523,12 @@
                     const compress_image = await filetoImage(file);
                     data.compress_file = file;
                     showMessage(file, compress_image, "output");
+
+                    $('#downloadImage').addClass('show');
+                    $('#downloadImage').removeClass('hide');
+
+                    $('.atom-spinner').addClass('hide');
+                    $('.atom-spinner').removeClass('show');
 
                     throw new Error("init > 9.99");
                 }
