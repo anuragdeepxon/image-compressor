@@ -616,7 +616,7 @@
             const size = 50;
             const accuracy = 0.99;
             const type = getDom("type").value;
-            const scale = 0.2;
+            const scale = 1;
             const startTime = Date.now();
             const compress_file = await imageConversion.compressAccurately(file, {
                 size,
